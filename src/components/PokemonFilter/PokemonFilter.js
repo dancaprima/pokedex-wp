@@ -9,19 +9,19 @@ const PokemonFilter = ({ onChange }) => {
   ]);
 
   useEffect(() => {
+    const getType = async () => {
+      const {
+        data: { results }
+      } = await get(`${API_URL}/type`);
+
+      const value = results.map(e => {
+        return { key: e.name, value: e.name, text: e.name };
+      });
+      setData([...data, ...value]);
+    };
     getType();
   }, []);
 
-  const getType = async () => {
-    const {
-      data: { results }
-    } = await get(`${API_URL}/type`);
-
-    const value = results.map(e => {
-      return { key: e.name, value: e.name, text: e.name };
-    });
-    setData([...data, ...value]);
-  };
   return (
     <Header as="h3" block>
       <Select placeholder="Select Type" options={data} onChange={onChange} />

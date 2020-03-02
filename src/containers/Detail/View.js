@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import { Container, Image, List, Grid } from 'semantic-ui-react';
+import Loader from '../../components/Loader/Loader';
 
 const POKEMON_QUERY = gql`
   query Pokemon($name: String!) {
@@ -32,7 +33,7 @@ const DetailView = () => {
     variables: { name: id }
   });
   if (error) return <div>Error</div>;
-  if (loading) return <div>Loading</div>;
+  if (loading) return <Loader show={true} />;
   if (data) {
     const { pokemon } = data;
     return (

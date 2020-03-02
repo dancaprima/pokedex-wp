@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card } from 'semantic-ui-react';
 import PokemonCard from '../../components/PokemonCard/PokemonCard';
-import { DETAIL_PATH, API_URL } from '../../url';
+import { API_URL } from '../../url';
 import { get } from '../../utils/fetch';
 import { generateImage } from '../../utils/image';
 import debounce from 'lodash.debounce';
 import PokemonFilter from '../../components/PokemonFilter/PokemonFilter';
+import Loader from '../../components/Loader/Loader';
 
 const HomeView = ({ history }) => {
   const [offset, setOffset] = useState(0);
@@ -47,11 +48,13 @@ const HomeView = ({ history }) => {
       window.innerHeight + document.documentElement.scrollTop >
       document.documentElement.scrollHeight - 500
     ) {
-      setOffset(offset + 8);
+      setOffset(offset + 24);
     }
   }, 100);
 
   const getPokemonByType = async name => {
+    setLoading(true);
+
     if (name !== 'all') {
       const {
         data: { pokemon }
@@ -61,6 +64,7 @@ const HomeView = ({ history }) => {
     } else {
       fetchPokemons();
     }
+    setLoading(false);
   };
 
   const toDetail = param => {
@@ -81,6 +85,7 @@ const HomeView = ({ history }) => {
             />
           ))}
       </Card.Group>
+      <Loader show={isLoading} />
     </Container>
   );
 };

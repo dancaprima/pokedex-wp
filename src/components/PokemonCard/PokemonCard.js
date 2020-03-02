@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
 const ImageWrapper = styled.div`
@@ -16,7 +15,7 @@ const ImageWrapper = styled.div`
 const PokemonCard = ({ image, title, onClick }) => (
   <Card onClick={onClick}>
     <ImageWrapper>
-      <img src={image} />
+      <img src={image} alt={image} />
     </ImageWrapper>
     <Card.Content>
       <Card.Header>{title}</Card.Header>
